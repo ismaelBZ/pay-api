@@ -18,6 +18,10 @@ const MobileMenu = ({displayHamburguer, handleClose}) => {
         </button>
       </div>
       <nav className="pt-11 pb-3 flex flex-col items-center gap-7">
+        <Link to={'/'} 
+          className="font-sans text-xl font-bold text-white opacity-65 cursor-mickey">
+          Home
+        </Link>
         <Link to={'/pricing'} 
           className="font-sans text-xl font-bold text-white opacity-65 cursor-mickey">
           Pricing
