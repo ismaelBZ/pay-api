@@ -1,0 +1,21 @@
+.home-phone {
+  content: url('./../../../../assets/imgs/home/mobile.svg');
+}
+
+.home-phone-shadow {
+  box-shadow:
+    25px 25px 80px rgb(54 83 107 / 30%),
+    0px 2px 44px rgb(0 0 0 / 15%);
+}
+
+@media only screen and (min-width: 768px) {
+  .home-phone {
+    content: url('./../../../../assets/imgs/home/mobile-tablet.svg');
+  }
+}
+
+@media only screen and (min-width: 1280px) {
+  .home-phone {
+    content: url('./../../../../assets/imgs/home/mobile-desktop.svg');
+  }
+}

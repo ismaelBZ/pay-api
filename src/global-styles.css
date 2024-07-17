@@ -1,0 +1,32 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: 'DM Serif Display';
+  src:
+    local('DM Serif Display'),
+    url('./assets/fonts/DM_Serif_Display/DMSerifDisplay-Regular.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'Public Sans';
+  src:
+    local('Public Sans'),
+    url('./assets/fonts/Public_Sans/PublicSans-VariableFont_wght.ttf') format('truetype');
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: 'DM Serif Display', serif;
+}
+
+p {
+  font-family: 'Public Sans', sans-serif;
+  color: #6c8294;
+}
+
+input:focus-visible, textarea:focus-visible {
+  outline: 0px; 
+}

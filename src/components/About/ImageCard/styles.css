@@ -1,0 +1,19 @@
+.about-photo {
+  width: 100lvw;
+  margin: auto;
+  content: url('./../../../assets/imgs/about/mobile-image.png')
+}
+
+@media only screen and (min-width: 768px) {
+  .about-photo {
+    content: url('./../../../assets/imgs/about/tablet-image.png');
+  }
+}
+
+@media only screen and (min-width: 1280px) {
+  .about-photo {
+    content: url('./../../../assets/imgs/about/desktop-image.png');
+    height: 105%;
+    width: 100vw;
+  }
+}
