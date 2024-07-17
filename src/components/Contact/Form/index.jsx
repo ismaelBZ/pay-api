@@ -112,10 +112,11 @@ const ContacForm = () => {
         <div className="mt-3 grid grid-cols-[50px,_1fr] items-center">
           <div className="relative">
             <input
+              id='contactUpToDate'
               type='checkbox'
               className="absolute -top-[12px] left-0 appearance-none
                 w-6 h-6
-                peer z-20
+                peer z-20 cursor-mickey
               "
             />
             <div
@@ -133,15 +134,18 @@ const ContacForm = () => {
             "
             />
           </div>
-          <p className="text-[15px]">
-            Stay up-to-date with company announcements and updates to our API
-          </p>
+          <label htmlFor='contactUpToDate'>
+            <p className="text-[15px] cursor-mickey">
+              Stay up-to-date with company announcements and updates to our API
+            </p>
+          </label>
         </div>
         <SubmitButton
           text="Submit"
           addStyles="px-[45px] mt-2 ml-0
             md:px-12
             active:bg-blue active:text-white
+            cursor-mickey
           "
         />
       </form>
