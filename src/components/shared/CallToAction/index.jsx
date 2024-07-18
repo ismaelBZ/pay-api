@@ -1,6 +1,7 @@
 import EmailInput from './../utils/Inputs/EmailInput'
 import Button from './../utils/Buttons/Default'
 import classNames from 'classnames'
+import { Link } from 'react-router-dom'
 
 const Cta = ({ title, titleStyle, formStyles, emaiStyle, buttonStyle }) => {
   return (
@@ -30,13 +31,15 @@ const Cta = ({ title, titleStyle, formStyles, emaiStyle, buttonStyle }) => {
         )}
       >
         <EmailInput addStyles={emaiStyle} />
-        <Button
-          addStyles={`md:absolute md:w-[178px] md:p-3 md:-top-[16px] md:right-0 ${{
-            buttonStyle,
-          }}`}
-        >
-          Schedule a Demo
-        </Button>
+        <Link to='/'>
+          <Button
+            addStyles={`md:absolute md:w-[178px] md:p-3 md:-top-[16px] md:right-0 ${{
+              buttonStyle,
+            }}`}
+          >
+            Schedule a Demo
+          </Button>
+        </Link>
       </form>
     </div>
   )
