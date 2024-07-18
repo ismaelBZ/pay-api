@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import Feature from '../../Feature'
 import Btn from '../../../shared/utils/Buttons/Outlined'
 
@@ -59,14 +60,16 @@ const PricingCard = ({
       </ul>
       <hr className="m-auto mt-7 w-[90%] opacity-20"></hr>
       <form>
-        <Btn
-          addStyles="m-auto mt-7 p-3 px-7
-          xl:ml-0
-          active:bg-blue active:text-white active:font-bold 
-          cursor-mickey
-          "
-          text="Request Acess"
-        />
+        <Link to='/'>
+          <Btn
+            addStyles="m-auto mt-7 p-3 px-7
+            xl:ml-0
+            active:bg-blue active:text-white active:font-bold 
+            cursor-mickey
+            "
+            text="Request Acess"
+          />
+        </Link>
       </form>
     </div>
   )

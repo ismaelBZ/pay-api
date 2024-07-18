@@ -15,7 +15,7 @@ const Footer = () => {
         "
       >
         {/* Logo - HOME */}
-        <Link className="cursor-mickey">
+        <Link to='/' className="cursor-mickey">
           <img
             src={Logo}
             className="m-auto grayscale brightness-[5]
