@@ -1,7 +1,8 @@
+import { useState } from 'react'
 import classNames from 'classnames'
 
 // eslint-disable-next-line react/prop-types
-const DefaultButton = ({ children, addStyles }) => {
+const DefaultButton = ({ children, addStyles,  onClick}) => {
   return (
     <button
       type="submit"

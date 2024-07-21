@@ -5,7 +5,7 @@ import Partners from '../../components/Contact/Partners';
 import Cta from './../../components/shared/CallToAction';
 import Footer from './../../components/shared/Footer';
 
-export const Contact = () => {
+const Contact = () => {
   return (
     <div className="bg-appBackground px-6 md:px-9 xl:px-20">
       <Header />
@@ -23,3 +23,5 @@ export const Contact = () => {
     </div>
   )
 }
+
+export default Contact;

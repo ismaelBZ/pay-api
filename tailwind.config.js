@@ -1,5 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 import {red} from 'tailwindcss/colors'
+import {emerald}  from 'tailwindcss/colors'
 export default {
   content: [
     './index.html',
@@ -16,6 +17,7 @@ export default {
       pink: '#BA4270',
       white: '#FBFCFE',
       red: red,
+      green: emerald,
       appBackground: '#EDF3F8',
     },
     fontFamily: {

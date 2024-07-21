@@ -1,12 +1,18 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
+import axios from 'axios'
+
 import './global-styles.css'
 
 import Home from './pages/Home/index.jsx'
 import Pricing from './pages/Pricing/index.jsx'
 import About from './pages/About/index.jsx'
-import { Contact } from './pages/Contact/index.jsx'
+import Contact from './pages/Contact/index.jsx'
+
+
+axios.defaults.baseURL = 'http://localhost:3000'
+
 
 const router = createBrowserRouter([
   {
@@ -29,6 +35,6 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+      <RouterProvider router={router}/>
   </React.StrictMode>,
 )
