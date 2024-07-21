@@ -1,18 +1,18 @@
-import { useState, useRef } from 'react'
+import { useState } from 'react'
 import SubmitButton from './../../../components/shared/utils/Buttons/Outlined'
 import { GrFormCheckmark } from 'react-icons/gr'
 import './styles.css'
 import axios from 'axios';
 
-const ContacForm = () => {
+const ContacForm = ({response, setResponse}) => {
   
-  const [validation, setValidation] = useState([
-    {
-    field: '',
+  const [validations, setValidations] = useState({  
+    field: {
     isInvalid: false,
     message: '',
     }
-  ])
+  })
+
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -22,84 +22,61 @@ const ContacForm = () => {
     upToDate: false
   })
 
+  const handleChange = (e) => {
+    setValidations({...validations, [e.target.name]: {...validations[e.target.name], isInvalid: false}});
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value
+    })
+  }
 
   const validateForm = () => {
-    setValidation({});
-  
-    for (const input in formData) {
-      if(input !== "company" && input !== "upToDate") {
-        if (/^\s*$/.test(formData[input])) {
-          setValidation((prevValidation) => {
-            if (prevValidation === null) {
-              return ({
-                [input]: {
-                  isInvalid: true,
-                  message: `This field can't be empty`,
-                }
-                , ...prevValidation
-              })
-            } else {
-                return ({
-                  [input]: {
-                    isInvalid: true,
-                    message: `This field can't be empty`,
-                  }
-                  , ...prevValidation
-                })
-              }
-          });
-        } else if (input === 'email') {
-          if (
-            !/[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/
-              .test(formData.email)
-            ) {
-              setValidation((prevValidation) => {
-                if(prevValidation === null) {
-                  return({
-                    email: {
-                      isInvalid: true,
-                      message: `Please provide a valid email`,
-                    }
-                  })
-                } else {
-                    return({
-                      email: {
-                        isInvalid: true,
-                        message: `Please provide a valid email`,
-                      }, ...prevValidation
-                    });
-                }
-              })
+    const data = (Object.entries(formData));
+    const validationFails = [];
+    
+    data.forEach((input) => {
+      if (input[0] === 'company' || input[0] === 'title') {
+        return;
+      }
+      if (/^\s*$/.test(input[1])){
+        const validations = {
+          [input[0]]: {
+            isInvalid: true,
+            message: `We need your ${input[0]}`
           }
         }
+        validationFails.push(validations);
+      } else if (input[0] === 'email') {
+        if (!/[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/
+          .test(input[1])) {
+            const validations = {
+              [input[0]]: {
+                isInvalid: true,
+                message: 'Please provide a valid email'
+              }
+            } 
+            validationFails.push(validations);
+          }
       }
-    }
+    });
 
+    setValidations(validationFails);
   }
 
-  const handleSubmit = async (e) => {
-    e.preventDefault()
-    validateForm();
 
-    {/* Accessing the useState validation current value */}
-    setValidation(async (prev) => {
-      let counter = 0;
-      for(const input in prev) {
-        if(prev[input].isInvalid) {
-          counter++;
-        }
-      } 
-      if (counter === 0) {
-        try {
-          const response = await axios.post('/contact', formData);
-        } catch (error) {
-            console.log(error.message);
-          } 
-        }
+   const handleSubmit = (e) => {
+       e.preventDefault()
+       validateForm();
+       setValidations((prev) => {
+        if (prev.length === 0) {
+          const apiResponse = axios.post('/contact', formData);
+          return prev
+        } 
+        console.log('erro')
         return prev;
-    })
-   
-  }
+       })
+   }
+
       
       
   return (
@@ -114,7 +91,7 @@ const ContacForm = () => {
           id="name"
           placeholder="Name"
           className={
-            validation.name?.isInvalid
+            validations.name?.isInvalid
               ? `
               p-3 ps-5 text-red-400 font-semibold placeholder:text-red-400
               bg-appBackground border-b-[1px] border-red-400
@@ -127,16 +104,10 @@ const ContacForm = () => {
             `
           }
           value={formData.name}
-          onChange={(e) => { 
-            setValidation({...validation, name: {...validation.name, isInvalid: false}});
-            setFormData({
-              ...formData,
-              name: e.target.value
-            })
-          }}
+          onChange={(e) => handleChange(e)}
         />
-        {validation.name?.isInvalid && (
-          <p className="ps-5 text-red-400">{validation.name.message}</p>
+        {validations.name?.isInvalid && (
+          <p className="ps-5 text-red-400">{validations.name.message}</p>
         )}
         <input
           type="text"
@@ -144,7 +115,7 @@ const ContacForm = () => {
           id="email"
           placeholder="Email Address"
           className={
-            validation.email?.isInvalid
+            validations.email?.isInvalid
               ? `
               p-3 ps-5 text-red-400 font-semibold placeholder:text-red-400
               bg-appBackground border-b-[1px] border-red-400
@@ -157,16 +128,10 @@ const ContacForm = () => {
             `
           }
           value={formData.email}
-          onChange={(e) => {
-            setValidation({...validation, email: {...validation.email, isInvalid: false}});
-            setFormData({
-              ...formData,
-              email: e.target.value
-            })
-          }}
+          onChange={(e) => handleChange(e)}
         />
-        {validation.email?.isInvalid && (
-          <p className="ps-5 text-red-400">{validation.email.message}</p>
+        {validations.email?.isInvalid && (
+          <p className="ps-5 text-red-400">{validations.email.message}</p>
         )}
         <input
           type="text"
@@ -178,12 +143,7 @@ const ContacForm = () => {
             focus:border-blue
           "
           value={formData.company}
-          onChange={(e) => { 
-            setFormData({
-              ...formData,
-              company: e.target.value
-            })
-          }}
+          onChange={(e) => handleChange(e)}
         />
         <input
           type="text"
@@ -191,7 +151,7 @@ const ContacForm = () => {
           id="title"
           placeholder="Title"
           className={
-            validation.title?.isInvalid
+            validations.title?.isInvalid
               ? `
               p-3 ps-5 text-red-400 font-semibold placeholder:text-red-400
               bg-appBackground border-b-[1px] border-red-400
@@ -204,16 +164,10 @@ const ContacForm = () => {
             `
           }
           value={formData.title}
-          onChange={(e) => { 
-            setValidation({...validation, title: {...validation.title, isInvalid: false}});
-            setFormData({
-              ...formData,
-              title: e.target.value
-            })
-          }}
+          onChange={(e) => handleChange(e)}
         />
-        {validation.title?.isInvalid && (
-          <p className="ps-5 text-red-400">{validation.title.message}</p>
+        {validations.title?.isInvalid && (
+          <p className="ps-5 text-red-400">{validations.title.message}</p>
         )}
         <textarea
           placeholder="Message"
@@ -221,7 +175,7 @@ const ContacForm = () => {
           id="message"
           rows="3"
           className={
-            validation.message?.isInvalid
+            validations.message?.isInvalid
               ? `
               p-3 ps-5 text-red-400 font-semibold placeholder:text-red-400
               bg-appBackground border-b-[1px] border-red-400
@@ -234,16 +188,10 @@ const ContacForm = () => {
             `
           }
           value={formData.message}
-          onChange={(e) => { 
-            setValidation({...validation, message: {...validation.message, isInvalid: false}});
-            setFormData({
-              ...formData,
-              message: e.target.value
-            })
-          }}
+          onChange={(e) => handleChange(e)}
         />
-        {validation.message?.isInvalid && (
-          <p className="ps-5 text-red-400">{validation.title.message}</p>
+        {validations.message?.isInvalid && (
+          <p className="ps-5 text-red-400">{validations.title.message}</p>
         )}
         {/* */}
         <div className="mt-3 grid grid-cols-[50px,_1fr] items-center">

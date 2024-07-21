@@ -17,8 +17,11 @@ const Cta = ({
     e.preventDefault()
     const email = document.querySelector('.rtsi').value;
     try {
-      const response = await axios.post('/request-demo', {email});
-      console.log(response);
+      const apiResponse = await axios.post('/request-demo', {email});
+      setResponse({
+        responseStatus: apiResponse.status,
+        message: 'Request send successfully'
+      });
     } catch (error) {
       const {message, response: {status}} = error
       setResponse({
