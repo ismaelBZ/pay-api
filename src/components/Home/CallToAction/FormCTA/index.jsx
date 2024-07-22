@@ -73,7 +73,7 @@ const FormCTA = ({setResponse}) => {
       {/*   
         The cta shared card was not used here to increase its compatibility with other pages and reduce maintenance work. Here is an individual component that is free to modify, as this is the user's first view of the site.
       */}
-      <Form onSubmit={handleSubmit}
+      <Form onSubmit={ e => handleSubmit(e) }
         className="m-auto mt-5
           md:mt-7 md:w-[65%] md:relative
           xl:m-0 xl:mt-14 xl:w-[80%]"
