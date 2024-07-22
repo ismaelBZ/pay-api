@@ -51,9 +51,8 @@ const FormCTA = ({setResponse}) => {
             message: 'Request send successfully'
           });
         } catch (error) {
-          const {response: {status}} = error
           setResponse({
-            responseStatus: status,
+            responseStatus: error.status,
             message: 'Failed! Try again later',
           });
         }
