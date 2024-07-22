@@ -1,7 +1,7 @@
 import FormCta from './FormCTA'
 import Phone from './Phone'
 
-const Cta = () => {
+const Cta = ({setResponse}) => {
   return (
     <section
       className="pb-20
@@ -18,7 +18,7 @@ const Cta = () => {
           xl:w-[50%]
         "
       >
-        <FormCta />
+        <FormCta setResponse={setResponse} />
       </div>
     </section>
   )

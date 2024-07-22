@@ -16,8 +16,11 @@ useEffect(() => {
 
     setTimeout(() => {
       setDisplay('-top-20');
-      setMessageColor('text-light-pink')
     }, 2500)
+
+    setTimeout(() => {
+      setMessageColor('text-light-pink')
+    }, 3000)
 
     // Return to default status
     setResponse({

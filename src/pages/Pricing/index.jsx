@@ -21,7 +21,7 @@ const Pricing = () => {
         <Title >Pricing</Title>
         <PlanList />
         <div className="mt-20 md:mt-28 ">
-          <Cta response={response} setResponse={setResponse} />
+          <Cta setResponse={setResponse} />
         </div>
       </main>
       <Footer />

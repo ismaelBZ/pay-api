@@ -26,7 +26,7 @@ const Contact = () => {
           </div>
         </div>
       </div>
-      <Cta response={response} setResponse={setResponse}/>
+      <Cta setResponse={setResponse}/>
       <Footer />
     </div>
   )

@@ -22,10 +22,10 @@ const Home = () => {
       <Header />
       <Notification response={response} setResponse={setResponse}/>
       <main>
-        <CallToAction />
+        <CallToAction setResponse={setResponse} />
         <Partners />
         <Features />
-        <Cta response={response} setResponse={setResponse} />
+        <Cta setResponse={setResponse} />
       </main>
       <Footer />
     </div>

@@ -22,6 +22,7 @@ const ContacForm = ({response, setResponse}) => {
     upToDate: false
   })
 
+
   const handleChange = (e) => {
     setValidations({...validations, [e.target.name]: {...validations[e.target.name], isInvalid: false}});
     setFormData({
@@ -29,6 +30,7 @@ const ContacForm = ({response, setResponse}) => {
       [e.target.name]: e.target.value
     })
   }
+
 
   const validateForm = () => {
     const data = (Object.entries(formData));
@@ -60,25 +62,44 @@ const ContacForm = ({response, setResponse}) => {
       }
     });
 
-    setValidations(validationFails);
+    let validationFailsObject = {}
+    for (const field of validationFails){
+      validationFailsObject = {
+        ...validationFailsObject,
+        ...field
+      }
+    }
+
+    setValidations(() => validationFailsObject);
+    return validationFailsObject;
   }
 
 
-   const handleSubmit = (e) => {
-       e.preventDefault()
-       validateForm();
-       setValidations((prev) => {
-        if (prev.length === 0) {
-          const apiResponse = axios.post('/contact', formData);
-          return prev
-        } 
-        console.log('erro')
-        return prev;
-       })
-   }
+  const sendForm = async () => {
+    try {
+      const apiResponse = await axios.post('/contact', formData);
+      setResponse({
+        responseStatus: apiResponse.status,
+        message: 'Request send successfully'
+      });
+    } catch (error) {
+      setResponse({
+        responseStatus: error.status,
+        message: 'Failed! Try again later'
+      })
+    } 
+  } 
 
-      
-      
+  
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    const formValidations = validateForm();
+    if ((Object.entries(formValidations)).length === 0) {
+      sendForm();
+    }
+  }
+
+
   return (
     <section className="md:m-auto md:mt-14 md:w-[65%] xl:mx-0 xl:w-[80%] xl:mt-2">
       <form
@@ -191,7 +212,7 @@ const ContacForm = ({response, setResponse}) => {
           onChange={(e) => handleChange(e)}
         />
         {validations.message?.isInvalid && (
-          <p className="ps-5 text-red-400">{validations.title.message}</p>
+          <p className="ps-5 text-red-400">{validations.message.message}</p>
         )}
         {/* */}
         <div className="mt-3 grid grid-cols-[50px,_1fr] items-center">

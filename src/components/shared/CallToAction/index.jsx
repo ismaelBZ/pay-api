@@ -1,3 +1,4 @@
+import {useState} from 'react';
 import EmailInput from './../utils/Inputs/EmailInput'
 import Button from './../utils/Buttons/Default'
 import classNames from 'classnames'
@@ -9,27 +10,61 @@ const Cta = ({
   formStyles,
   emailStyle,
   buttonStyle,
-  response,
   setResponse,
 }) => {
+  const [email, setEmail] = useState ('');
+  const [validation, setValidation] = useState({
+    email: {
+      isInvalid: false,
+      message: `We need your email`
+    }
+  })
+  
+  const validateEmail = () => {
+    let validationResult = {};
+    if (/^\s*$/.test(email)) {
+      validationResult = 
+        {
+          email: {
+            isInvalid: true,
+            message: `We need your email`
+          }
+        }
+    } else if (!/[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/.test(email)
+      ) {
+          validationResult = 
+            {
+              email: {
+                isInvalid: true,
+                message: 'Please provide a valid email'
+              }
+            }
+    }
+
+    setValidation(validationResult);
+    return validationResult;  
+  }
 
   const handleSubmit = async e => {
     e.preventDefault()
-    const email = document.querySelector('.rtsi').value;
-    try {
-      const apiResponse = await axios.post('/request-demo', {email});
-      setResponse({
-        responseStatus: apiResponse.status,
-        message: 'Request send successfully'
-      });
-    } catch (error) {
-      const {message, response: {status}} = error
-      setResponse({
-        responseStatus: status,
-        message: message,
-      });
+    const validationResult = validateEmail();
+    if ((Object.entries(validationResult)).length === 0) {
+        try {
+          const apiResponse = await axios.post('/request-demo', {email});
+          setResponse({
+            responseStatus: apiResponse.status,
+            message: 'Request send successfully'
+          });
+        } catch (error) {
+          const {response: {status}} = error
+          setResponse({
+            responseStatus: status,
+            message: 'Failed! Try again later',
+          });
+        }
     }
   }
+
 
   return (
     <div
@@ -58,7 +93,14 @@ const Cta = ({
         )}
         onSubmit={e => handleSubmit(e)}
       >
-        <EmailInput addStyles={[emailStyle, 'rtsi']} />
+        <EmailInput 
+          addStyles={emailStyle} 
+          value={email}
+          onChange={(e)=> {
+            setValidation({validation, email: {isInvalid: false}})
+            setEmail(e.target.value)
+          }}
+        />
         <Button
           addStyles={`md:absolute md:w-[178px] md:p-3 md:-top-[16px] md:right-0 ${{
             buttonStyle,
@@ -66,6 +108,9 @@ const Cta = ({
         >
           Schedule a Demo
         </Button>
+      {validation.email?.isInvalid && (
+          <p className="ps-5 mt-3 text-red-400">{validation.email.message}</p>
+        )}
       </form>
     </div>
   )

@@ -1,7 +1,7 @@
 import classNames from 'classnames'
 import './styles.css'
 
-const EmailInput = ({ addStyles }) => {
+const EmailInput = ({ addStyles, value, onChange }) => {
   return (
     <input
       className={classNames(` w-full m-auto p-3 pl-[20px] block
@@ -12,6 +12,8 @@ const EmailInput = ({ addStyles }) => {
       `, addStyles
       )}
       placeholder="Enter email address"
+      value={value}
+      onChange={onChange}
     />
   )
 }

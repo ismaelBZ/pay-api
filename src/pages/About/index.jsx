@@ -29,7 +29,7 @@ const About = () => {
       <ImageCard />
       <Stats />
       <Culture />
-      <Cta response={response} setResponse={setResponse} /> 
+      <Cta setResponse={setResponse} /> 
       <Footer />
     </div>
   )
