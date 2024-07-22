@@ -57,7 +57,7 @@ const Cta = ({
           });
         } catch (error) {
           setResponse({
-            responseStatus: error.status,
+            responseStatus: error.response.status,
             message: 'Failed! Try again later',
           });
         }
