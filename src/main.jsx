@@ -11,7 +11,7 @@ import About from './pages/About/index.jsx'
 import Contact from './pages/Contact/index.jsx'
 
 
-axios.defaults.baseURL = 'http://localhost:3000'
+axios.defaults.baseURL = 'https://pay-api-backend-eirp.onrender.com';
 
 
 const router = createBrowserRouter([
