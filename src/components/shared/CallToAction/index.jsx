@@ -53,12 +53,12 @@ const Cta = ({
           const apiResponse = await axios.post('/request-demo', {email});
           setResponse({
             responseStatus: apiResponse.status,
-            message: 'Request send successfully'
+            message: apiResponse.data.message
           });
         } catch (error) {
           setResponse({
-            responseStatus: error.response.status,
-            message: 'Failed! Try again later',
+            responseStatus: error.response ? error.response.status : 500,
+            message: error.response ? error.response.data.message : error.message
           });
         }
     }
@@ -84,6 +84,7 @@ const Cta = ({
         {title ? title : 'Ready to start?'}
       </h2>
       <form
+        id='scheduleDemoForm'
         className={classNames(` readyToStart
           mt-8
           md:relative md:w-[65%] m-auto md:mt-12

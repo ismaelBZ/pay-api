@@ -46,15 +46,16 @@ const FormCTA = ({setResponse}) => {
     if ((Object.entries(validationResult)).length === 0) {
         try {
           const apiResponse = await axios.post('/request-demo', {email});
-          console.log(apiResponse);
+          console.log(apiResponse)
           setResponse({
             responseStatus: apiResponse.status,
-            message: 'Request send successfully'
+            message: apiResponse.data.message
           });
         } catch (error) {
+          console.log(error);
           setResponse({
-            responseStatus: error.response.status,
-            message: 'Failed! Try again later',
+            responseStatus: error.response ? error.response.status : 500,
+            message: error.response ? error.response.data.message : error.message
           });
         }
     }

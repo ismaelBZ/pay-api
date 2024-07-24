@@ -80,12 +80,12 @@ const ContacForm = ({response, setResponse}) => {
       const apiResponse = await axios.post('/contact', formData);
       setResponse({
         responseStatus: apiResponse.status,
-        message: 'Request send successfully'
+        message: apiResponse.data.message
       });
     } catch (error) {
       setResponse({
-        responseStatus: error.response.status,
-        message: 'Failed! Try again later'
+        responseStatus: error.response ? error.response.status : 500,
+        message: error.response ? error.response.data.message : error.message
       })
     } 
   } 
@@ -265,4 +265,5 @@ const ContacForm = ({response, setResponse}) => {
     </section>
   )
 }
+
 export default ContacForm
