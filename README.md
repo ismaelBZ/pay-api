@@ -1,4 +1,4 @@
-# Pay - E-commerce Product Page
+# Pay API - Connecting accounts to apps 
 
 🛍  A payment API website focused on customer acquisition 
 
