@@ -1,5 +1,7 @@
 # Pay API - Connecting accounts to apps 
 
+![desktop](https://github.com/ismaelBZ/pay-api/blob/main/src/assets/imgs/desktop-image.PNG)
+
 🛍  A payment API website focused on customer acquisition 
 
 [🔗 Go to PayAPI website](https://ismaelbz.github.io/pay-api/) 
