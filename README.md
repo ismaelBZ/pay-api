@@ -1,6 +1,6 @@
 # Pay - E-commerce Product Page
 
-👟  A payment API website focused on customer acquisition 
+🛍  A payment API website focused on customer acquisition 
 
 [🔗 Go to PayAPI website](https://ismaelbz.github.io/pay-api/) 
 
