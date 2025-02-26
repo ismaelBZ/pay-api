@@ -31,7 +31,7 @@
 If you prefer git:
 
 ```
-git clone git@github.com:ismaelBZ/pay-api.git`
+git clone https://github.com/ismaelBZ/pay-api.git`
 ```
 
 ### Install dependencies:
